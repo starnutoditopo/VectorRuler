@@ -31,15 +31,15 @@
             <form id="rulerParameters" action="">
                 <label>
                     <span>Start:</span>
-                    <input type="text" id="startNo" value="0">
+                    <input type="text" id="startNo" value="0" />
                 </label>
                 <label>
                     <span>Width:</span>
-                    <input type="text" id="rulerWidth" value="12">
+                    <input type="text" id="rulerWidth" value="12" />
                 </label>
                 <label>
                     <span>Height:</span>
-                    <input type="text" id="rulerHeight" value="1.5">
+                    <input type="text" id="rulerHeight" value="1.5" />
                 </label>
 
                 <label>
@@ -47,21 +47,25 @@
                 </label>
                 <Input type="radio" name="rulerUnits" value="inches">
                 Inches
-
+                </input>
                 <Input type="radio" name="rulerUnits" value="centimeters" checked>
                 Centimeters
+                </input>
                 <br>
                 <Input type="radio" name="subUnits" value="2">
                 Fractional
+                </input>
                 <Input type="radio" name="subUnits" value="10" checked>
                 Decimal
+                </input>
+                <br>
                 <label>
                     <span>Subdivisions: </span>
                     <select id="subUnitExponent" style="width:30%">
                         <option value="0">Zero</option>
-                        <option value="1">One</option>
+                        <option value="1" selected>One</option>
                         <option value="2">Two</option>
-                        <option value="3" selected>Three</option>
+                        <option value="3">Three</option>
                         <option value="4">Four</option>
                         <option value="5">Five</option>
                         <option value="6">Six </option>
@@ -83,10 +87,15 @@
 
                     </select>
                 </label>
+                <br>
                 <label>
                     <span></span>
                 </label>
-                <input type="checkbox" name="redundant" id="redundant">Draw redundant lines<br>
+                <input type="checkbox" name="redundant" id="redundant">Draw redundant lines</input><br />
+                <label>
+                    <span></span>
+                </label>
+                <input type="checkbox" name="absolute" id="absolute">Use absolute value</input><br />
             </form>
             <form id="svgexpform" method="post" action="http://download-data-uri.appspot.com/">
                 <b>Filename: </b>

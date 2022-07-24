@@ -168,7 +168,8 @@ var constructRuler = function () {
         offsetTickIndex,
         exponentIndex,
         tickSpacing,
-        finalTick
+        finalTick,
+        ruler.absolute
       );
       //draws the ticks
     }
@@ -182,7 +183,8 @@ var tick = function (
   offsetTickIndex,
   exponentIndex,
   tickSpacing,
-  finalTick
+  finalTick,
+  absolute
 ) {
   //exponentIndex is 0-6, how small it is, 6 being smallest
   var x1 = horizPosition + tickSpacing * tickIndex;
@@ -200,12 +202,19 @@ var tick = function (
     ruler.tickArray[ruler.masterTickIndex] = true; //register the tick so it is not duplicated
     if (exponentIndex === 0) {
       //if is a primary tick, it needs a label
-      tickLabel(x1, y2, finalTick, offsetTickIndex, exponentIndex);
+      tickLabel(x1, y2, finalTick, offsetTickIndex, exponentIndex, absolute);
     }
   }
 };
 
-var tickLabel = function (x1, y2, finalTick, tickIndex, exponentIndex) {
+var tickLabel = function (
+  x1,
+  y2,
+  finalTick,
+  tickIndex,
+  exponentIndex,
+  absolute
+) {
   //label the tick
   var labelTextSize;
   var labelTextSizeInches = 18;
@@ -228,7 +237,16 @@ var tickLabel = function (x1, y2, finalTick, tickIndex, exponentIndex) {
     text.justification = "right";
   } //last label is right justified
   text.fillColor = "black";
-  text.content = "" + tickIndex;
+
+  formattedValue = "";
+  if (absolute) {
+    formattedValue += Math.abs(tickIndex);
+  } else {
+    formattedValue += tickIndex;
+  }
+  //formattedValue += "\r\n" + (tickIndex + 1);
+
+  text.content = formattedValue;
   text.style = {
     // fontFamily: 'Helvetica',
     fontFamily: "monospace",
@@ -247,6 +265,7 @@ var updateVariables = function () {
   ruler.units = $("input:radio[name=rulerUnits]:checked'").val();
   ruler.subUnitBase = $("input:radio[name=subUnits]:checked'").val();
   ruler.redundant = $("input:checkbox[name=redundant]:checked'").val();
+  ruler.absolute = $("input:checkbox[name=absolute]:checked'").val();
   ruler.width = $("#rulerWidth").val();
   ruler.height = $("#rulerHeight").val();
   ruler.subUnitExponent = $("#subUnitExponent").val();
