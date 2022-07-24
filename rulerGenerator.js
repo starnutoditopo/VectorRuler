@@ -169,7 +169,8 @@ var constructRuler = function () {
         exponentIndex,
         tickSpacing,
         finalTick,
-        ruler.absolute
+        ruler.absolute,
+        ruler.multiplyFactor
       );
       //draws the ticks
     }
@@ -184,7 +185,8 @@ var tick = function (
   exponentIndex,
   tickSpacing,
   finalTick,
-  absolute
+  absolute,
+  multiplyFactor
 ) {
   //exponentIndex is 0-6, how small it is, 6 being smallest
   var x1 = horizPosition + tickSpacing * tickIndex;
@@ -202,7 +204,15 @@ var tick = function (
     ruler.tickArray[ruler.masterTickIndex] = true; //register the tick so it is not duplicated
     if (exponentIndex === 0) {
       //if is a primary tick, it needs a label
-      tickLabel(x1, y2, finalTick, offsetTickIndex, exponentIndex, absolute);
+      tickLabel(
+        x1,
+        y2,
+        finalTick,
+        offsetTickIndex,
+        exponentIndex,
+        absolute,
+        multiplyFactor
+      );
     }
   }
 };
@@ -213,7 +223,8 @@ var tickLabel = function (
   finalTick,
   tickIndex,
   exponentIndex,
-  absolute
+  absolute,
+  multiplyFactor
 ) {
   //label the tick
   var labelTextSize;
@@ -238,13 +249,12 @@ var tickLabel = function (
   } //last label is right justified
   text.fillColor = "black";
 
-  formattedValue = "";
+  finalValue = tickIndex * multiplyFactor;
   if (absolute) {
-    formattedValue += Math.abs(tickIndex);
-  } else {
-    formattedValue += tickIndex;
+    finalValue = Math.abs(finalValue);
   }
-  //formattedValue += "\r\n" + (tickIndex + 1);
+  formattedValue = "" + finalValue;
+
 
   text.content = formattedValue;
   text.style = {
@@ -268,6 +278,7 @@ var updateVariables = function () {
   ruler.absolute = $("input:checkbox[name=absolute]:checked'").val();
   ruler.width = $("#rulerWidth").val();
   ruler.height = $("#rulerHeight").val();
+  ruler.multiplyFactor = $("#multiplyFactor").val();
   ruler.subUnitExponent = $("#subUnitExponent").val();
   ruler.levelToLevelMultiplier = $("#levelToLevelMultiplier").val();
   ruler.cmPerInch = 2.54;

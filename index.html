@@ -31,11 +31,11 @@
             <form id="rulerParameters" action="">
                 <label>
                     <span>Start:</span>
-                    <input type="text" id="startNo" value="0" />
+                    <input type="text" id="startNo" value="-10" />
                 </label>
                 <label>
                     <span>Width:</span>
-                    <input type="text" id="rulerWidth" value="12" />
+                    <input type="text" id="rulerWidth" value="20" />
                 </label>
                 <label>
                     <span>Height:</span>
@@ -45,19 +45,12 @@
                 <label>
                     <span>Units:</span>
                 </label>
-                <Input type="radio" name="rulerUnits" value="inches">
-                Inches
-                </input>
-                <Input type="radio" name="rulerUnits" value="centimeters" checked>
-                Centimeters
-                </input>
+                <Input type="radio" name="rulerUnits" value="inches">Inches</input>
+                <Input type="radio" name="rulerUnits" value="centimeters" checked>Centimeters</input>
                 <br>
-                <Input type="radio" name="subUnits" value="2">
-                Fractional
-                </input>
-                <Input type="radio" name="subUnits" value="10" checked>
-                Decimal
-                </input>
+                <Input type="radio" name="subUnits" value="2">Fractional</input>
+                <Input type="radio" name="subUnits" value="10" checked>Decimal</input>
+
                 <br>
                 <label>
                     <span>Subdivisions: </span>
@@ -89,13 +82,18 @@
                 </label>
                 <br>
                 <label>
-                    <span></span>
+                    <span>Other options</span>
                 </label>
                 <input type="checkbox" name="redundant" id="redundant">Draw redundant lines</input><br />
                 <label>
                     <span></span>
                 </label>
                 <input type="checkbox" name="absolute" id="absolute">Use absolute value</input><br />
+                <label>
+                    <span>Multiply by:</span>
+                    <input type="text" id="multiplyFactor" value="1" />
+                </label>
+
             </form>
             <form id="svgexpform" method="post" action="http://download-data-uri.appspot.com/">
                 <b>Filename: </b>
