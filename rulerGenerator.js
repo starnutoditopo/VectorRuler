@@ -235,7 +235,8 @@ var tickLabel = function (
   } else {
     labelTextSize = labelTextSizeCm;
   }
-  var xLabelOffset = 4;
+  //var xLabelOffset = 4;
+  var xLabelOffset = 0;
   var yLabelOffset = 1;
   if (finalTick) {
     xLabelOffset = -1 * xLabelOffset;
@@ -243,10 +244,20 @@ var tickLabel = function (
   var text = new paper.PointText(
     new paper.Point(x1 + xLabelOffset, y2 + yLabelOffset)
   );
-  text.justification = "left";
-  if (finalTick) {
-    text.justification = "right";
-  } //last label is right justified
+
+  //   // Justify the final tick to the right
+  //   text.justification = "left";
+  //   if (finalTick) {
+  //     text.justification = "right";
+  //   } //last label is right justified
+
+  text.justification = "right";
+  if (tickIndex < 0) {
+    text.justification = "left";
+  } else if (tickIndex == 0) {
+    text.justification = "center";
+  }
+
   text.fillColor = "black";
 
   finalValue = tickIndex * multiplyFactor;
@@ -254,7 +265,6 @@ var tickLabel = function (
     finalValue = Math.abs(finalValue);
   }
   formattedValue = "" + finalValue;
-
 
   text.content = formattedValue;
   text.style = {
