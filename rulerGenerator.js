@@ -155,11 +155,12 @@ var constructRuler = function () {
       var tickSpacing =
         ruler.pixelsPerUnit / Math.pow(ruler.subUnitBase, exponentIndex);
       //spacing between ticks, the fundemental datum on a ruler :-)
-      var finalTick = false;
-      if (tickIndex === tickQty) {
-        finalTick = true;
-      }
+    //   var finalTick = false;
+    //   if (tickIndex === tickQty) {
+    //     finalTick = true;
+    //   }
 
+      //draws the ticks
       var offsetTickIndex = parseInt(tickIndex) + parseInt(startNo);
       tick(
         tickHeight,
@@ -168,15 +169,32 @@ var constructRuler = function () {
         offsetTickIndex,
         exponentIndex,
         tickSpacing,
-        finalTick,
+        // finalTick,
         ruler.absolute,
         ruler.multiplyFactor,
         ruler.fontSize,
         ruler.fontFamily
       );
-      //draws the ticks
     }
   }
+
+  drawAdditionalLabel(ruler.fontSize, ruler.fontFamily, ruler.additionalLabel);
+};
+
+var drawAdditionalLabel = function (fontSize, fontFamily, additionalLabel) {
+  var labelTextSize = getLabelTextSize(fontSize);
+
+  var text = new paper.PointText(new paper.Point(0, 45));
+
+  text.justification = "left";
+  text.fillColor = "black";
+  text.content = additionalLabel;
+  text.style = {
+    fontFamily: fontFamily,
+    fontWeight: "bold",
+    fontSize: labelTextSize,
+  };
+  text.name = "Additional label"; //label for SVG editor
 };
 
 var tick = function (
@@ -186,7 +204,7 @@ var tick = function (
   offsetTickIndex,
   exponentIndex,
   tickSpacing,
-  finalTick,
+  // finalTick,
   absolute,
   multiplyFactor,
   fontSize,
@@ -211,7 +229,7 @@ var tick = function (
       tickLabel(
         x1,
         y2,
-        finalTick,
+        // finalTick,
         offsetTickIndex,
         exponentIndex,
         absolute,
@@ -223,18 +241,7 @@ var tick = function (
   }
 };
 
-var tickLabel = function (
-  x1,
-  y2,
-  finalTick,
-  tickIndex,
-  exponentIndex,
-  absolute,
-  multiplyFactor,
-  fontSize,
-  fontFamily
-) {
-  //label the tick
+var getLabelTextSize = function (fontSize) {
   var labelTextSize;
   var labelTextSizeInches = fontSize;
   var labelTextSizeCm = Math.round(labelTextSizeInches / ruler.cmPerInch);
@@ -243,12 +250,30 @@ var tickLabel = function (
   } else {
     labelTextSize = labelTextSizeCm;
   }
+  return labelTextSize;
+};
+
+var tickLabel = function (
+  x1,
+  y2,
+  //finalTick,
+  tickIndex,
+  exponentIndex,
+  absolute,
+  multiplyFactor,
+  fontSize,
+  fontFamily
+) {
+  //label the tick
+
+  var labelTextSize = getLabelTextSize(fontSize);
+
   //var xLabelOffset = 4;
   var xLabelOffset = 0;
   var yLabelOffset = 1;
-  if (finalTick) {
-    xLabelOffset = -1 * xLabelOffset;
-  } //last label is right justified
+  //   if (finalTick) {
+  //     xLabelOffset = -1 * xLabelOffset;
+  //   } //last label is right justified
   var text = new paper.PointText(
     new paper.Point(x1 + xLabelOffset, y2 + yLabelOffset)
   );
@@ -300,6 +325,7 @@ var updateVariables = function () {
   ruler.fontSize = $("#fontSize").val();
   ruler.fontFamily = $("#fontFamily").val();
   ruler.multiplyFactor = $("#multiplyFactor").val();
+  ruler.additionalLabel = $("#additionalLabel").val();
   ruler.subUnitExponent = $("#subUnitExponent").val();
   ruler.levelToLevelMultiplier = $("#levelToLevelMultiplier").val();
   ruler.cmPerInch = 2.54;
