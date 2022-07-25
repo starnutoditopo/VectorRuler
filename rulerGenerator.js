@@ -170,7 +170,9 @@ var constructRuler = function () {
         tickSpacing,
         finalTick,
         ruler.absolute,
-        ruler.multiplyFactor
+        ruler.multiplyFactor,
+        ruler.fontSize,
+        ruler.fontFamily
       );
       //draws the ticks
     }
@@ -186,7 +188,9 @@ var tick = function (
   tickSpacing,
   finalTick,
   absolute,
-  multiplyFactor
+  multiplyFactor,
+  fontSize,
+  fontFamily
 ) {
   //exponentIndex is 0-6, how small it is, 6 being smallest
   var x1 = horizPosition + tickSpacing * tickIndex;
@@ -211,7 +215,9 @@ var tick = function (
         offsetTickIndex,
         exponentIndex,
         absolute,
-        multiplyFactor
+        multiplyFactor,
+        fontSize,
+        fontFamily
       );
     }
   }
@@ -224,11 +230,13 @@ var tickLabel = function (
   tickIndex,
   exponentIndex,
   absolute,
-  multiplyFactor
+  multiplyFactor,
+  fontSize,
+  fontFamily
 ) {
   //label the tick
   var labelTextSize;
-  var labelTextSizeInches = 18;
+  var labelTextSizeInches = fontSize;
   var labelTextSizeCm = Math.round(labelTextSizeInches / ruler.cmPerInch);
   if (ruler.units === "inches") {
     labelTextSize = labelTextSizeInches;
@@ -269,7 +277,8 @@ var tickLabel = function (
   text.content = formattedValue;
   text.style = {
     // fontFamily: 'Helvetica',
-    fontFamily: "monospace",
+    // fontFamily: "monospace",
+    fontFamily: fontFamily,
     fontWeight: "bold",
     fontSize: labelTextSize,
   };
@@ -288,6 +297,8 @@ var updateVariables = function () {
   ruler.absolute = $("input:checkbox[name=absolute]:checked'").val();
   ruler.width = $("#rulerWidth").val();
   ruler.height = $("#rulerHeight").val();
+  ruler.fontSize = $("#fontSize").val();
+  ruler.fontFamily = $("#fontFamily").val();
   ruler.multiplyFactor = $("#multiplyFactor").val();
   ruler.subUnitExponent = $("#subUnitExponent").val();
   ruler.levelToLevelMultiplier = $("#levelToLevelMultiplier").val();
