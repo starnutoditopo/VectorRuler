@@ -366,7 +366,7 @@ var exportSvg = function () {
       })
     );
     downloadLink.href = url;
-    downloadLink.download = "myPaperExport.svg";
+    downloadLink.download = "Ruler.svg";
 
     // viewBox ='viewBox="0 0 '+exportWidth+' '+exportHeight+'"'
     // dims = ' width= "'+exportWidth+'" height="'+exportHeight+' " '

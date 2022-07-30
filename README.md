@@ -4,6 +4,7 @@ VectorRuler
 ![Screenshot](Screenshot.png?raw=true "Screenshot")](http://starnutoditopo.github.io/VectorRuler/)
 
 A Javascript-based generator of laser cutter friendly etchable rulers.
+
 Originally forked from [https://github.com/robbbb/VectorRuler](https://github.com/robbbb/VectorRuler), this version is focused on rulers to calculate distances on maps.
 
 ### Features
